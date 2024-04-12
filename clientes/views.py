@@ -33,11 +33,13 @@ def clienteByDocument(request, document):
 def createClient(request):
     if request.method == 'POST':
         try:
-            cliente = createCliente(**request.data)
+            data = request.data
+            cliente = createCliente(**data)
             serializer = ClientSerializer(cliente)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['DELETE'])
 @csrf_exempt
