@@ -30,23 +30,33 @@ def clienteByDocument(request, document):
             return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
 
-def postCliente(request):
+api_view(['POST'])
+def createClient(request, formCliente):
     if request.method == 'POST':
-        form = clienteForm(request.POST)
-        if form.is_valid():
-            createCliente(form)
-            messages.add_message(request, messages.SUCCESS, 'Cliente created successful')
-            return HttpResponseRedirect(reverse('createCliente'))
-        else:
-            print(form.errors)
-    else:
-        form = clienteForm()
+        try:
+            createCliente(formCliente)
+            return Response(status=status.HTTP_201_CREATED)
+        except Exception:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
-    context = {
-        'form': form,
-    }
-
-    return render(request, 'clientes/createClientes.html', context)
+api_view(['DELETE'])
+def deleteClient(request, document):
+    if request.method == 'DELETE':
+        try:
+            deleteClienteByDocumento(document)
+            return Response(status=status.HTTP_201_CREATED)
+        except Exception:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        
+api_view(['PUT'])
+def updateClient(request, document, formCliente):
+    if request.method == 'PUT':
+        try:
+            updateClienteByDocumento(document, formCliente)
+            return Response(status=status.HTTP_201_CREATED)
+        except Exception:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+    
 
 
 
