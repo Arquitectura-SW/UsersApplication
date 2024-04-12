@@ -34,7 +34,21 @@ def createClienteR(request):
     if request.method == 'POST':
         try:
             form_data = request.data
-            cliente = createCliente(**form_data)
+            cliente = createCliente(
+                name=form_data.get('name'),
+                lastName=form_data.get('lastName'),
+                document=form_data.get('document'),
+                birthdate=form_data.get('birthdate'),
+                email=form_data.get('email'),
+                country=form_data.get('country'),
+                city=form_data.get('city'),
+                income=form_data.get('income'),
+                debt=form_data.get('debt'),
+                economicActivity=form_data.get('economicActivity'),
+                company=form_data.get('company'),
+                profession=form_data.get('profession')
+            )
+            
             serializer = ClientSerializer(cliente)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as e:
