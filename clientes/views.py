@@ -33,12 +33,13 @@ def clienteByDocument(request, document):
 def createClient(request):
     if request.method == 'POST':
         try:
-            form_data = request.data
+            form_data = request.data.dict()
             cliente = createCliente(**form_data)
             serializer = ClientSerializer(cliente)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 @api_view(['DELETE'])
