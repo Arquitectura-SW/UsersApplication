@@ -1,7 +1,5 @@
 from clientes.models import Cliente
 
-
-
 def getClientes():
     return Cliente.objects.all().order_by('document')
 
@@ -29,7 +27,21 @@ def getClienteByDocumento(document):
     try:
         return Cliente.objects.get(document=document)
     except:
-        return None
+        raise Exception({"error": "Client not found"}, 404)
+    
+def deleteClienteByDocumento(document):
+    try:
+        Cliente.objects.delete(document=document)
+    except:
+        raise Exception({"error": "Client not deleted"}, 404)
+    
+def updateClienteByDocumento(document, formCliente):
+    try:
+        user = formCliente.save()
+        user.save()
+        return Cliente.objects.get(document=document)
+    except:
+        raise Exception({"error": "Client not saved"}, 404)
     
     
     
