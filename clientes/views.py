@@ -11,12 +11,9 @@ from clientes.logic.logic_clientes import getClientes, createCliente, getCliente
 api_view(['GET'])
 def clientesList(request):
     if request.method == 'GET':
-        try:
             clientes = getClientes()
             serializer = ClientSerializer(clientes, many= True)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        except Exception:
-            return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
         
 api_view(['GET'])
 def clienteByDocument(request, document):
