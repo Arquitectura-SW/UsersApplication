@@ -12,7 +12,7 @@ class Usuario(models.Model):
     class Meta:
         abstract = True
 
-def __str__(self):
-    return f"{self.document} {self.name} {self.email} {self.age}"
+    def __str__(self):
+        return f"{self.document} {self.name} {self.email} {self.age}"
 
 

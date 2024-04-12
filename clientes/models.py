@@ -10,6 +10,6 @@ class Cliente(Usuario):
     company = models.CharField(max_length = 100)
     profession = models.CharField(max_length = 150)
     
-    
-def __str__(self):
-    return f"{self.document} {self.name} {self.email} {self.income} {self.debt}"
+        
+    def __str__(self):
+        return f"{self.document} {self.name} {self.email} {self.income} {self.debt}"
