@@ -1,11 +1,8 @@
-from django.shortcuts import render
-from django.contrib import messages
 from .serializer import ClientSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-from django.http import HttpResponseRedirect
-from django.urls import reverse
+from datetime import datetime
 from clientes.logic.logic_clientes import getClientes, createCliente, getClienteByDocumento, deleteClienteByDocumento, updateClienteByDocumento
 
 @api_view(['GET'])
@@ -29,6 +26,9 @@ def clienteByDocument(request, document):
 def createClient(request):
     if request.method == 'POST':
         try:
+            is_valid, message = validate_client_data(request.data)
+            if not is_valid:
+                return Response({'detail': message}, status=status.HTTP_400_BAD_REQUEST)
             cliente = createCliente(request.data)
             serializer = ClientSerializer(cliente)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -53,4 +53,29 @@ def updateClient(request, document):
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
+def validate_client_data(client_data):
+    id_number = client_data.get('document', None)
+    birth_date_str = client_data.get('birthdate', None)
+    message = ''
+    is_valid = True
+    
+    if id_number:
+        client = getClienteByDocumento(id_number)
+        if client is not None:
+            message += "The client with the provided document number already exists in the system. "
+            is_valid = False
 
+    if birth_date_str:
+        birth_date = datetime.strptime(birth_date_str, '%Y-%m-%d').date()
+        today = datetime.now().date()
+        age = today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
+        if age < 18:
+            message += "The client must be of legal age to register in the system. "
+            is_valid = False
+
+    if id_number:
+        if len(id_number) != 10:
+            message += "The document number (cedula) must have 10 digits."
+            is_valid = False
+
+    return is_valid, message if message else None
