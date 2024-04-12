@@ -3,9 +3,9 @@ from clientes.models import Cliente
 def getClientes():
     return Cliente.objects.all().order_by('document')
 
-def createCliente(data):
+def createCliente(formCliente):
     try: 
-        return Cliente.objects.create(**data)
+        return Cliente.objects.create(**formCliente)
     except: 
         raise Exception({'detail': 'No created'}, 400)
 
@@ -33,21 +33,20 @@ def getClienteByDocumento(document):
     
 def deleteClienteByDocumento(document):
     try:
-        Cliente.objects.delete(document=document)
+        Cliente.objects.filter(document=document).delete()
     except:
         raise Exception({"error": "Client not deleted"}, 404)
-    
+
     
 def updateClienteByDocumento(document, formCliente):
     try:
         cliente = getClienteByDocumento(document)
-        for key, value in formCliente:
+        for key, value in formCliente.items():
             setattr(cliente, key, value)
         cliente.save() 
         return Cliente.objects.get(document=document)
     except:
-            raise Exception({'detail': 'Cliente updated'}, 400)
-    
-    
+        raise Exception({'detail': 'Cliente not updated'}, 400)
+
     
     

@@ -3,9 +3,8 @@ from .views import createCliente, clientesList, clienteByDocument, deleteClient,
 
 urlpatterns = [
     path('clientes/', clientesList),
-    path('clientes/createCliente', createCliente),
-    path('clientes/int<document>', clienteByDocument),
-    path('clientes/delete/int<document>', deleteClient),
-    path('clientes/updateClient/int<document>', updateClient),
-    
+    path('clientes/createCliente/', createCliente),  
+    path('clientes/<int:document>/', clienteByDocument),  
+    path('clientes/delete/<int:document>/', deleteClient),  
+    path('clientes/updateClient/<int:document>/', updateClient), 
 ]
