@@ -33,7 +33,7 @@ def clienteByDocument(request, document):
 def createClient(request):
     if request.method == 'POST':
         try:
-            cliente = createCliente(request.data)
+            cliente = createCliente(**request.data)
             serializer = ClientSerializer(cliente)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as e:

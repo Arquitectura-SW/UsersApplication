@@ -3,11 +3,12 @@ from clientes.models import Cliente
 def getClientes():
     return Cliente.objects.all().order_by('document')
 
-def createCliente(formCliente):
+def createCliente(**kwargs):
     try: 
-        return Cliente.objects.create(**formCliente)
-    except: 
-        raise Exception({'detail': 'No created'}, 400)
+        return Cliente.objects.create(**kwargs)
+    except Exception as e: 
+        raise Exception({'detail': str(e)}, 400)
+
 
 def createClienteObject(name, lastName, document, birthdate, email, country, city, income, debt, economicActivity, company, profession):
     user = Cliente()
