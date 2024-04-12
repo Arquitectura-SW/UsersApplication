@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.contrib import messages
-from .forms import ClienteForm
 from .serializer import ClientSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view

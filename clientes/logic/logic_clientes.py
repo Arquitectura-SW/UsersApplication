@@ -6,14 +6,9 @@ def getClientes():
 
 def createCliente(formCliente):
     try: 
-        #is_valid, message = validate_client_data(formCliente)
-        #if is_valid:
-            user = formCliente.save()
-            user.save()
+        return Cliente.objects.create(**formCliente)
     except: 
-        #is_valid, message = validate_client_data(formCliente)
-        #if not is_valid:
-            raise Exception({'detail': 'No created'}, 400)
+        raise Exception({'detail': 'No created'}, 400)
 
 def createClienteObject(name, lastName, document, birthdate, email, country, city, income, debt, economicActivity, company, profession):
     user = Cliente()
@@ -46,12 +41,13 @@ def deleteClienteByDocumento(document):
     
 def updateClienteByDocumento(document, formCliente):
     try:
-            user = formCliente.save()
-            user.save()
-            return Cliente.objects.get(document=document)
+        cliente = getClienteByDocumento(document)
+        for key, value in formCliente:
+            setattr(cliente, key, value)
+        cliente.save() 
+        return Cliente.objects.get(document=document)
     except:
-            raise Exception({'detail': message}, 400)
-    
+            raise Exception({'detail': 'Cliente updated'}, 400)
     
     
     
