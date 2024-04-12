@@ -1,21 +1,20 @@
 from clientes.models import Cliente
-from usuarios.logic.logic_usuarios import getUsuarios, createUsuario, createUsuarioObject, getUsuarioByDocument
+
 
 
 def getClientes():
-    queryset = Cliente.objects.all().order_by('document')
-    return(queryset)
+    return Cliente.objects.all().order_by('document')
 
 def createCliente(formCliente):
     user = formCliente.save()
     user.save()
 
-def createClienteObject(name, lastName, document, age, email, country, city, income, debt, economicActivity, company, profession):
+def createClienteObject(name, lastName, document, birthdate, email, country, city, income, debt, economicActivity, company, profession):
     user = Cliente()
     user.name = name
     user.lastName = lastName
     user.document = document
-    user.age = age
+    user.birthdate = birthdate
     user.email = email
     user.country = country
     user.city = city
@@ -27,12 +26,10 @@ def createClienteObject(name, lastName, document, age, email, country, city, inc
     user.save()
     
 def getClienteByDocumento(document):
-    userSelect = None
     try:
-        user = Cliente.objects.get(document=document)
-        userSelect = user
+        return Cliente.objects.get(document=document)
     except:
-        userSelect
-    return userSelect
+        return None
+    
     
     

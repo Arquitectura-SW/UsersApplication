@@ -1,4 +1,0 @@
-UsersApplication
-administradores
-clientes
-usuarios
