@@ -61,7 +61,7 @@ def validate_client_data(client_data):
     
     if id_number:
         client = getClienteByDocumento(id_number)
-        if client is not None:
+        if client is not ({"error": "Client not deleted"}, 404):
             message += "The client with the provided document number already exists in the system. "
             is_valid = False
 
