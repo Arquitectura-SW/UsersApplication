@@ -30,15 +30,16 @@ def clienteByDocument(request, document):
 
 @api_view(['POST'])
 @csrf_exempt
-def createClient(request):
+def createClienteR(request):
     if request.method == 'POST':
         try:
-            form_data = request.data.dict()
+            form_data = request.data
             cliente = createCliente(**form_data)
             serializer = ClientSerializer(cliente)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 
