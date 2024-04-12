@@ -32,6 +32,12 @@ def getClienteByDocumento(document):
     except:
         raise Exception({"error": "Client not found"}, 404)
     
+def getClienteByDocumentoVal(document):
+    try:
+        return Cliente.objects.get(document=document)
+    except:
+        return None
+    
 def deleteClienteByDocumento(document):
     try:
         cliente = getClienteByDocumento(document)

@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 from datetime import datetime
-from clientes.logic.logic_clientes import getClientes, createCliente, getClienteByDocumento, deleteClienteByDocumento, updateClienteByDocumento
+from clientes.logic.logic_clientes import getClientes, createCliente, getClienteByDocumento, deleteClienteByDocumento, updateClienteByDocumento, getClienteByDocumentoVal
 
 @api_view(['GET'])
 def clientesList(request):
@@ -60,8 +60,8 @@ def validate_client_data(client_data):
     is_valid = True
     
     if id_number:
-        client = getClienteByDocumento(id_number)
-        if client is not ({"error": "Client not deleted"}, 404):
+        client = getClienteByDocumentoVal(id_number)
+        if client is not None:
             message += "The client with the provided document number already exists in the system. "
             is_valid = False
 
