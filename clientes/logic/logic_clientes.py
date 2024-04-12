@@ -11,6 +11,7 @@ def createCliente(formCliente):
             user = formCliente.save()
             user.save()
     except: 
+        is_valid, message = validate_client_data(formCliente)
         if not is_valid:
             raise Exception({'detail': message}, 400)
 
@@ -51,6 +52,7 @@ def updateClienteByDocumento(document, formCliente):
             user.save()
             return Cliente.objects.get(document=document)
     except:
+        is_valid, message = validate_client_data(formCliente)
         if not is_valid:
             raise Exception({'detail': message}, 400)
     
