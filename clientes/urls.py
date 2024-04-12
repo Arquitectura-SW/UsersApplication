@@ -5,6 +5,6 @@ urlpatterns = [
     path('clientes/', clientesList),
     path('clientes/createCliente/', createClient),  
     path('clientes/<int:document>/', clienteByDocument),  
-    path('clientes/delete/<int:document>/', deleteClient),  
+    path('clientes/deleteClient/<int:document>/', deleteClient),  
     path('clientes/updateClient/<int:document>/', updateClient), 
 ]
