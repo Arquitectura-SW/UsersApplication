@@ -3,9 +3,9 @@ from clientes.models import Cliente
 def getClientes():
     return Cliente.objects.all().order_by('document')
 
-def createCliente(formCliente):
+def createCliente(data):
     try: 
-        return Cliente.objects.create(**formCliente)
+        return Cliente.objects.create(**data)
     except: 
         raise Exception({'detail': 'No created'}, 400)
 

@@ -34,8 +34,9 @@ api_view(['POST'])
 def createClient(request, formCliente):
     if request.method == 'POST':
         try:
-            createCliente(formCliente)
-            return Response(status=status.HTTP_201_CREATED)
+            cliente = createCliente(formCliente.data)
+            serializer = ClientSerializer(cliente)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
