@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-class Cliente(models):
+class Cliente(models.Model):
     name = models.CharField(max_length = 150)
     lastName = models.CharField(max_length = 150)
     document = models.BigIntegerField(null = False, blank = False, primary_key=True)
