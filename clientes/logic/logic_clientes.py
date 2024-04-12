@@ -34,7 +34,7 @@ def getClienteByDocumento(document):
     
 def deleteClienteByDocumento(document):
     try:
-        Cliente.objects.filter(document=document).delete()
+        Cliente.objects.delete(document=document)
     except:
         raise Exception({"error": "Client not deleted"}, 404)
 
