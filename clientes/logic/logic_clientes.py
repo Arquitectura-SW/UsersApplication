@@ -6,14 +6,14 @@ def getClientes():
 
 def createCliente(formCliente):
     try: 
-        is_valid, message = validate_client_data(formCliente)
-        if is_valid:
+        #is_valid, message = validate_client_data(formCliente)
+        #if is_valid:
             user = formCliente.save()
             user.save()
     except: 
-        is_valid, message = validate_client_data(formCliente)
-        if not is_valid:
-            raise Exception({'detail': message}, 400)
+        #is_valid, message = validate_client_data(formCliente)
+        #if not is_valid:
+            raise Exception({'detail': 'No created'}, 400)
 
 def createClienteObject(name, lastName, document, birthdate, email, country, city, income, debt, economicActivity, company, profession):
     user = Cliente()
