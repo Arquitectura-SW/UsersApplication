@@ -4,7 +4,10 @@ def getClientes():
     return Cliente.objects.all().order_by('document')
 
 def createCliente(data):
-    return Cliente.objects.create(**data)
+    try:
+        return Cliente.objects.create(**data)
+    except:
+        raise Exception({"error": "Client not created"}, 404)
 
 
 def createClienteObject(name, lastName, document, birthdate, email, country, city, income, debt, economicActivity, company, profession):

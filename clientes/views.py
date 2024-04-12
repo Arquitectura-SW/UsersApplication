@@ -4,13 +4,11 @@ from .serializer import ClientSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from clientes.logic.logic_clientes import getClientes, createCliente, getClienteByDocumento, deleteClienteByDocumento, updateClienteByDocumento
 
 @api_view(['GET'])
-@csrf_exempt
 def clientesList(request):
     if request.method == 'GET':
         clientes = getClientes()
@@ -18,7 +16,6 @@ def clientesList(request):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
-@csrf_exempt
 def clienteByDocument(request, document):
     if request.method == 'GET':
         try:
@@ -29,36 +26,16 @@ def clienteByDocument(request, document):
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
-@csrf_exempt
-def createClienteR(request):
+def createClient(request):
     if request.method == 'POST':
         try:
-            form_data = request.data
-            cliente = createCliente(
-                name=form_data.get('name'),
-                lastName=form_data.get('lastName'),
-                document=form_data.get('document'),
-                birthdate=form_data.get('birthdate'),
-                email=form_data.get('email'),
-                country=form_data.get('country'),
-                city=form_data.get('city'),
-                income=form_data.get('income'),
-                debt=form_data.get('debt'),
-                economicActivity=form_data.get('economicActivity'),
-                company=form_data.get('company'),
-                profession=form_data.get('profession')
-            )
-            
+            cliente = createCliente(request.data)
             serializer = ClientSerializer(cliente)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
-
-
-
 @api_view(['DELETE'])
-@csrf_exempt
 def deleteClient(request, document):
     if request.method == 'DELETE':
         try:
@@ -68,7 +45,6 @@ def deleteClient(request, document):
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT'])
-@csrf_exempt
 def updateClient(request, document):
     if request.method == 'PUT':
         try:
