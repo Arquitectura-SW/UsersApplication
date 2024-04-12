@@ -1,5 +1,4 @@
 from clientes.models import Cliente
-from datetime import datetime
 
 def getClientes():
     return Cliente.objects.all().order_by('document')
