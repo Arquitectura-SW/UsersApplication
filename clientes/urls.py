@@ -1,8 +1,10 @@
 from django.urls import path
-from django.views.decorators.csrf import csrf_exempt
-from .views import postCliente, clientesList
+from .views import createClient, clientesList, clienteByDocument, deleteClient, updateClient
 
 urlpatterns = [
     path('clientes/', clientesList),
-    path('createCliente', csrf_exempt(postCliente), name = 'createCliente' )
+    path('clientes/createCliente/', createClient),  
+    path('clientes/<int:document>/', clienteByDocument),  
+    path('clientes/deleteClient/<int:document>/', deleteClient),  
+    path('clientes/updateClient/<int:document>/', updateClient), 
 ]

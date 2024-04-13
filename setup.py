@@ -1,14 +1,14 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="UsersApp",
+    name="AppClient",
     version="0.2",
     packages=find_packages(),
     install_requires=[
         "asgiref==3.8.1",
         "astroid==3.1.0",
         "dill==0.3.8",
-        "Django==5.0.4",
+        "Django==4.2.11",
         "djangorestframework==3.15.1",
         "isort==5.13.2",
         "mccabe==0.7.0",
@@ -21,5 +21,6 @@ setup(
         "tomlkit==0.12.4",
         "typing_extensions==4.11.0"
     ],
+
 
 )
