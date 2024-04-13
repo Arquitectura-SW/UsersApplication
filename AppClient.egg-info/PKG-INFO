@@ -1,5 +1,5 @@
 Metadata-Version: 2.1
-Name: UsersAppClient
+Name: AppClient
 Version: 0.2
 Requires-Dist: asgiref==3.8.1
 Requires-Dist: astroid==3.1.0
